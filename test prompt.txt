@@ -1,6 +1,6 @@
 Open LTT using the following link: https://bouyguestelecomltt3.service-now.com/.
 Confirm executing
-Enter the login altst004 and password Automatisation@2023.
+Enter the login altst004 and password Automatisation@2023.-m
 Confirm executing
 Click on the 'Log in' button.
 Confirm executing
