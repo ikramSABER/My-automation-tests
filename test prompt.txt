@@ -1,0 +1,62 @@
+Open LTT using the following link: https://bouyguestelecomltt3.service-now.com/.
+Confirm executing
+Enter the login altst004 and password Automatisation@2023.
+Confirm executing
+Click on the 'Log in' button.
+Confirm executing
+Navigate to the Snow search bar.
+Confirm executing
+Click on the 'All' menu.
+Confirm executing
+Type 'créer TU'.
+Confirm executing
+Click on the 'créer TU' link.
+Confirm executing
+Please enter the following information into the corresponding asterisked fields:
+
+	Contract ID: 610003015229
+	Technology: FTTH
+	Origin: SAV
+	Category: accès
+	Sub-category: DF-Plus de signal
+Confirm executing
+Fill in the mobile field with: 0600000000.
+Confirm executing
+Fill in the short description field with: Ticket test automatisé NR FTTH SAV.
+Confirm executing
+Check the option: ticket test.
+Confirm executing
+Click the submit button.
+Confirm executing
+Wait for the following changes:
+
+	Status: Actif.
+	Technical Step: Trt usine.
+	Silo Group: remplit.
+	Assignment Group: remplit.
+Confirm executing
+Go to the field assigned to and enter the login altst004.
+Confirm executing
+Verify that the following buttons are present at both the top and bottom of the page: Enregistrer, Actualiser, Geler, Demande d’information, Relance, Expertise OI, Intervention Mainteneur, Proposer en DEF, Rafraîchir donnée de traitement, Rejouer Enrichissement, Signalisation OI, Reprioriser, Reualifier, Proposition de Résolution, Résoudre, Transfert Commande, Reset nombre de jours sans actions trans.
+Confirm executing
+S’assurer de l’existence des champs suivants : Numéro, Origine, Catégorie, Sous-catégorie, Technologie, Famille, Criticality, Diagnostic ID, Force RAZ, Intention de résiliation, Ouvert le, Ouvert par, Modifié par utilisateur, Source, Type d intervention, Description brève.
+Confirm executing
+Verify the existence of the following tabs: notes, Contrat, Equipement, Ligne, Commande, Données de traitement, Enregistrements connexes, Intervention, Infos de fermeture, Pièces jointes CR Mainteneur.
+Confirm executing
+Verify the existence of the following fields: Rang dispatch, Notes de travail.
+Confirm executing
+Verify the existence of the two buttons: Publier, Filtrer l’activité.
+Confirm executing
+Confirm that the following system SMS has been sent:"L'envoi du SMS a été effectué avec succès.Nous avons détecté un incident sur votre ligne Bbox et nos équipes sont déjà en train de le traiter ! Nous vous tenons au courant par SMS et par e-mail dès que tout est réglé. En attendant, Mon Assistant Bbox vous accompagne pour suivre la résolution de cet incident http://bytl.fr/SuiviIncident".
+Confirm executing
+Confirm that the following system SMS has been sent:"Liste des communications :
+
+SMS - Nous avons détecté un incident sur votre ligne Bbox et nos équipes sont déjà en train de le traiter ! Nous vous tenons au courant par SMS et par e-mail dès que tout est réglé. En attendant Mon Assistant Bbox vous accompagne pour suivre la résolution de cet incident http://bytl.fr/SuiviIncident
+
+EMAIL - L'email [NEW] FTTH : Mail Ouverture Proactive a été envoyé
+
+Serveur vocal interactif - Une communication IVR a été effectuée : 22
+
+Accueil client - ACO a été mis à jour : FTTH : Création ticket proactif_E01_AC23_R00_PA01"
+Verify the existence of the following tabs: Stop Facturations, Workflows reliés, Flows related to the ticket, Workflow Transition Logs, Signalisations, Mainteneurs FTTH, CR Mainteneurs, TICKET SAV metric, Ticket Business Process Logs, Ticket Business Process Error Log, Historique Ticket, Historique signalisations, Historique Mainteneur, SLA de tâches, Log Web services.
+Confirm executing
