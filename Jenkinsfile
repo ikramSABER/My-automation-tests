@@ -4,7 +4,7 @@ pipeline {
     stages {
         stage('Checkout') {
             steps {
-                git branch: 'main', url: 'https://github.com/YOUR-USERNAME/YOUR-REPO.git'
+                git branch: 'main', url: 'https://github.com/ikramSABER/My-automation-tests.git'
             }
         }
         
@@ -62,4 +62,5 @@ pipeline {
             }
         }
     }
+
 }
