@@ -1,66 +1,59 @@
-pipeline {
-    agent any
-    
-    stages {
-        stage('Checkout') {
-            steps {
-                git branch: 'main', url: 'https://github.com/ikramSABER/My-automation-tests.git'
-            }
-        }
-        
-        stage('Setup Robot Framework') {
-            steps {
-                sh '''
-                    echo "Installing Robot Framework if not present..."
-                    python3 --version || (echo "Python3 not found, installing..." && apt-get update && apt-get install -y python3 python3-pip)
-                    pip3 show robotframework || pip3 install --user robotframework robotframework-seleniumlibrary
-                    
-                    echo "Checking Robot Framework installation..."
-                    which robot || echo "robot command not found in PATH"
-                    python3 -m robot --version || echo "robot module not found"
-                    
-                    # Try to find robot executable
-                    find /var/jenkins_home -name "robot" -type f 2>/dev/null || echo "No robot executable found"
-                '''
-            }
-        }
-        
-        stage('Run Robot Tests') {
-            steps {
-                sh '''
-                    mkdir -p test-results
-                    
-                    # Try different ways to run robot
-                    if [ -f "/var/jenkins_home/.local/bin/robot" ]; then
-                        echo "Using robot from .local/bin"
-                        /var/jenkins_home/.local/bin/robot --outputdir test-results tests/
-                    elif command -v robot >/dev/null 2>&1; then
-                        echo "Using robot from PATH"
-                        robot --outputdir test-results tests/
-                    elif python3 -m robot --version >/dev/null 2>&1; then
-                        echo "Using robot via python module"
-                        python3 -m robot --outputdir test-results tests/
-                    else
-                        echo "Installing Robot Framework and trying again..."
-                        pip3 install --user robotframework
-                        python3 -m robot --outputdir test-results tests/
-                    fi
-                '''
-            }
-            post {
-                always {
-                    archiveArtifacts artifacts: 'test-results/**/*', allowEmptyArchive: true
-                    publishHTML([
-                        allowMissing: false,
-                        alwaysLinkToLastBuild: true,
-                        keepAll: true,
-                        reportDir: 'test-results',
-                        reportFiles: 'report.html',
-                        reportName: 'Robot Framework Report'
-                    ])
-                }
-            }
-        }
-    }
+version: '3.8'
 
-}
+services:
+  jenkins:
+    image: jenkins/jenkins:lts
+    container_name: jenkins-gali
+    privileged: true
+    user: root
+    restart: unless-stopped
+    ports:
+      - "8080:8080"
+      - "50000:50000"
+    volumes:
+      - jenkins_home:/var/jenkins_home
+      - /var/run/docker.sock:/var/run/docker.sock
+      - /usr/bin/docker:/usr/bin/docker
+    environment:
+      - JAVA_OPTS=-Djenkins.install.runSetupWizard=false
+      - JENKINS_OPTS=--httpPort=8080
+    networks:
+      - jenkins-network
+
+  # Optional: Selenium Grid Hub for distributed testing
+  selenium-hub:
+    image: selenium/hub:4.15.0
+    container_name: selenium-hub
+    ports:
+      - "4444:4444"
+    environment:
+      - GRID_MAX_SESSION=16
+      - GRID_BROWSER_TIMEOUT=300
+      - GRID_TIMEOUT=300
+    networks:
+      - jenkins-network
+
+  # Optional: Chrome nodes for Selenium Grid
+  selenium-chrome:
+    image: selenium/node-chrome:4.15.0
+    container_name: selenium-chrome
+    depends_on:
+      - selenium-hub
+    environment:
+      - HUB_HOST=selenium-hub
+      - HUB_PORT=4444
+      - NODE_MAX_SESSION=4
+    volumes:
+      - /dev/shm:/dev/shm
+    networks:
+      - jenkins-network
+    deploy:
+      replicas: 2
+
+volumes:
+  jenkins_home:
+    driver: local
+
+networks:
+  jenkins-network:
+    driver: bridge
